@@ -1,0 +1,23 @@
+.btnGrid{
+    margin:0.1em !important;
+}
+
+#addItemPopup{
+    margin:0.1em;
+    padding:0.1em;
+}
+
+#addItemPopup form{
+    margin:0.1rem;
+    padding: 0.1em;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.addItemBtn{
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+

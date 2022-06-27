@@ -1,0 +1,75 @@
+
+<popup-modal-app 
+[display]="showPopup"  
+[viewPopup]="viewPopup"
+[transactionPopup]="transactionPopup"
+[salePopup]="salePopup"
+[addItemPopup]="addItemPopup"
+[popUpData]="popUpData"
+[dispencaryList]="dispencaryList"
+(closePop)="closePopup()"
+(doDispatch)="handleDispatch($event)"></popup-modal-app>
+
+
+<a class="btn btn-sm btn-primary mb-2 gridBtn" data-action-type='addItem'
+(click)="handleGridAction({eventType:'addItem'})"
+>Add Items</a>
+
+<div *ngIf="addItemPopup" id="addItemPopup">
+    <form #addForm = "ngForm" (ngSubmit)='handleAddItem(addForm.value)' class="form d-flex">
+        <div class="form-group">
+            <label class="form-label">Item Name: </label>
+            <input type="text" name="itemName" required class="form-control" ngModel #itemName="ngModel"/>
+            <div *ngIf="itemName.invalid && itemName.touched"  >
+              <span *ngIf="itemName.errors?.['required']" style="color:red ;" >Name is required.</span>
+              </div>
+        </div>
+        <div class="form-group ">
+            <label class="form-label">Item Price: </label>
+            <input type="number" name="itemPrice" required class="form-control" min="1" ngModel #itemPrice="ngModel"/>
+            <div *ngIf="itemPrice.invalid && itemPrice.touched"  >
+                <span *ngIf="itemPrice.errors?.['min']" style="color:red ;" >Price can not be negative.</span>
+              <span *ngIf="itemPrice.errors?.['required']" style="color:red ;" >Price is required.</span>
+              </div>
+            
+        </div>
+        <div class="form-group ">
+            <label class="form-label">Item Quantity : </label>
+            <input type="number" name="itemQuantity" min="1" required class="form-control" ngModel #itemQuantity="ngModel"/>
+            <div *ngIf="itemQuantity.invalid && itemQuantity.touched"  >
+                <span *ngIf="itemQuantity.errors?.['min']" style="color:red ;" >Quantity can not be negative.</span>
+              <span *ngIf="itemQuantity.errors?.['required']" style="color:red ;" >Quantity is required.</span>
+              </div>
+            </div>
+        
+        <div class="form-group w-25">
+            <label class="form-label">Description : </label>
+            <input type="text" name="itemDescription" required class="form-control" ngModel #itemDescription="ngModel"/>
+            <div *ngIf="itemDescription.invalid && itemDescription.touched"  >
+                <span *ngIf="itemName.errors?.['required']" style="color:red ;" >Description is required.</span>
+            </div>
+            
+        </div>
+
+        <div class="form-group addItemBtn m-1 p-1">
+           <button type="submit" [disabled]="addForm.invalid" class="btn btn-primary btn-sm btnAddItem">Add </button> 
+           <button (click)="closePopup()" class="btn btn-danger btn-sm btnAddItem">Cancel</button>   
+        </div> 
+
+    </form>
+</div>
+
+<ag-grid-angular 
+style="width:100%; height:100%;"
+class='ag-theme-alpine'
+[rowData]="rowData"
+[columnDefs]="colDefs"
+[defaultColDef]="defaultColDef"
+[animateRows]="true"
+[context]="context"
+[enableCellChangeFlash]="true"
+(gridReady)="onGridReady($event)"
+>
+</ag-grid-angular>
+
+

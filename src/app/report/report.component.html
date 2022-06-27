@@ -1,0 +1,11 @@
+<ag-grid-angular 
+style="width:100%; height:100%;"
+class='ag-theme-alpine'
+[rowData]="SalesList"
+[columnDefs]="colDefs"
+[defaultColDef]="defaultColDef"
+[animateRows]="true"
+[enableCellChangeFlash]="true"
+(gridReady)="onGridReady($event)"
+>
+</ag-grid-angular>
