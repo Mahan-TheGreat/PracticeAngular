@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GridOptions, ColDef, GridApi, ColumnApi, GridReadyEvent, RefreshCellsParams, RowNode } from 'ag-grid-community';
+import { GridOptions, ColDef, GridApi, ColumnApi, GridReadyEvent, RefreshCellsParams, RowNode, Grid } from 'ag-grid-community';
 import { IItem } from '../interfaces/iitem';
+import { PrintServiceService } from '../print-service.service';
 
 import { SalesServiceService } from '../sales-service.service';
 
@@ -11,15 +12,18 @@ import { SalesServiceService } from '../sales-service.service';
 })
 export class ReportComponent implements OnInit {
   private Ss: SalesServiceService
-  constructor(SS:SalesServiceService) { 
+  private gridApi: GridApi = new GridApi()
+  private _api:GridApi = new GridApi()
+  constructor(SS:SalesServiceService, public PS: PrintServiceService) { 
     this.Ss = SS
   }
   SalesList:any[]=[]
-  SalesReportList:any[]=[]
   rowData:any[]=[]
 
   onGridReady(params:GridReadyEvent){
+    this.gridApi = params.api
     params.api.setRowData(this.rowData);
+
   }
   
   ngOnInit(): void {
@@ -30,43 +34,13 @@ export class ReportComponent implements OnInit {
   getData(){
     this.Ss.getSalesReport().subscribe(
       data=>{
-        data.forEach(item=>{
-          this.transformData(item)
-        })
-        this.rowData=this.SalesReportList
-
-
+         this.rowData=data
       });
   }  
-
-  transformData(data:any[]){
-    const x = data
-    var quantity:number=0;
-    var totalPrice:number=0;
-    var itemName:string='';
-    
-    x.map(y=>{
-      itemName=y.itemName
-      quantity += y.quantity
-      totalPrice += y.totalPrice
-    })
-    const item = {
-      itemName: itemName,
-      quantity: quantity,
-      totalPrice:totalPrice
-    }
-    this.SalesReportList.push(item)
-
-        // data.forEach(x=>{
-        //   console.log(x.splice(1))
-        //   let y = x.splice(1)
-        //   y.forEach(y=>{
-        //     console.log(y);
-        //   })
-        // })
-
+  
+  print(){
+    this.PS.onBtPrint(this.gridApi)
   }
-
     //Column Definition for ag grid
   colDefs:ColDef[] =
    [

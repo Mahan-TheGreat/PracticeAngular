@@ -9,7 +9,7 @@ import { InventoryService } from './inventory.service';
 import { AgGridComponent } from './ag-grid/ag-grid.component';
 import { BtnCellRenderer } from './ag-grid/button.component';
 import { PopupModalComponent } from './popup-modal/popup-modal.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SalesDashboardComponent } from './sales-dashboard/sales-dashboard.component';
 import { ReportComponent } from './report/report.component';
@@ -27,6 +27,7 @@ import { ReportComponent } from './report/report.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AgGridModule.withComponents([BtnCellRenderer])
   ],
@@ -34,3 +35,4 @@ import { ReportComponent } from './report/report.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

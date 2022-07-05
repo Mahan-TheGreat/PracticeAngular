@@ -8,7 +8,10 @@ import { ColumnApi, GridApi, ICellRendererParams } from "ag-grid-community";
    template: `
          
              <button (click)="buttonClicked($event)" class="btn btn-sm btn-primary btnGrid" data-action-type='sell'>Sell</button>
-             <button (click)="buttonClicked($event)" class="btn btn-sm btn-primary btnGrid" data-action-type='view'>View</button>
+             <button (click)="buttonClicked($event)" class="btn btn-sm btn-info btnGrid" data-action-type='view'>View</button>
+             <button (click)="buttonClicked($event)" class="btn btn-sm btn-warning btnGrid" data-action-type='edit'>Edit</button>
+             <button (click)="buttonClicked($event)" class="btn btn-sm btn-danger btnGrid" data-action-type='delete'>Delete</button>
+
          `,
    styleUrls: ['./ag-grid.component.css'] 
    

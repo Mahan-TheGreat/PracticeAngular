@@ -15,7 +15,7 @@
 (click)="handleGridAction({eventType:'addItem'})"
 >Add Items</a>
 
-<div *ngIf="addItemPopup" id="addItemPopup">
+<!-- <div *ngIf="addItemPopup" id="addItemPopup">
     <form #addForm = "ngForm" (ngSubmit)='handleAddItem(addForm.value)' class="form d-flex">
         <div class="form-group">
             <label class="form-label">Item Name: </label>
@@ -53,6 +53,49 @@
 
         <div class="form-group addItemBtn m-1 p-1">
            <button type="submit" [disabled]="addForm.invalid" class="btn btn-primary btn-sm btnAddItem">Add </button> 
+           <button (click)="closePopup()" class="btn btn-danger btn-sm btnAddItem">Cancel</button>   
+        </div> 
+
+    </form>
+</div> -->
+<div *ngIf="addItemPopup" id="addItemPopup">
+    <form  [formGroup]="addItemForm" (ngSubmit)="handleAddItem()" class="form d-flex">
+        <div class="form-group">
+            <label class="form-label">Item Name<sup style="color: red;">*</sup>: </label>
+            <input type="text" name="itemName" required class="form-control" formControlName="itemName"/>
+            <div *ngIf="itemName && itemName.invalid && itemName.touched"  >
+              <span *ngIf="itemName.errors?.['required']" style="color:red ;" >Name is required.</span>
+            </div>
+        </div>
+        <div class="form-group ">
+            <label class="form-label">Item Price<sup style="color: red;">*</sup>: </label>
+            <input type="number" name="itemPrice" required class="form-control" min="1" formControlName="itemPrice" />
+            <div *ngIf="itemPrice && itemPrice.invalid && itemPrice.touched"  >
+                <span *ngIf="itemPrice.errors?.['min']" style="color:red ;" >Price can not be negative.</span>
+              <span *ngIf="itemPrice.errors?.['required']" style="color:red ;" >Price is required.</span>
+              </div> 
+            
+        </div>
+        <div class="form-group ">
+            <label class="form-label">Item Quantity<sup style="color: red;">*</sup> : </label>
+            <input type="number" name="itemQuantity" min="1" required class="form-control" formControlName="quantity"/>
+            <div *ngIf="quantity && quantity.invalid && quantity.touched"  >
+                <span *ngIf="quantity.errors?.['min']" style="color:red ;" >Quantity can not be negative.</span>
+              <span *ngIf="quantity.errors?.['required']" style="color:red ;" >Quantity is required.</span>
+              </div>
+            </div>
+        
+        <div class="form-group w-25">
+            <label class="form-label">Description<sup style="color: red;">*</sup> : </label>
+            <input type="text" name="itemDescription" required class="form-control" formControlName="itemDetails"/>
+            <div *ngIf="itemDetails && itemDetails.invalid && itemDetails.touched"  >
+                <span *ngIf="itemDetails.errors?.['required']" style="color:red ;" >Description is required.</span>
+            </div>
+            
+        </div>
+
+        <div class="form-group addItemBtn m-1 p-1">
+           <button type="submit" [disabled]="addItemForm.invalid"  class="btn btn-primary btn-sm btnAddItem">Add </button> 
            <button (click)="closePopup()" class="btn btn-danger btn-sm btnAddItem">Cancel</button>   
         </div> 
 

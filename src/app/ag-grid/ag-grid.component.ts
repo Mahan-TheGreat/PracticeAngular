@@ -1,13 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BtnCellRenderer } from './button.component';
-import { GridOptions, ColDef, GridApi, ColumnApi, GridReadyEvent, RefreshCellsParams, RowNode } from 'ag-grid-community';
-import { invModel } from '../iItems.model';
+import { ColDef, GridReadyEvent } from 'ag-grid-community';
 import { InventoryService } from '../inventory.service';
-import { DispencaryService } from '../dispencary.service';
 import { IItem } from '../interfaces/iitem';
 import { SalesServiceService } from '../sales-service.service';
-import { Observable } from 'rxjs';
 
 
 @Component({
@@ -53,6 +50,7 @@ export class AgGridComponent implements OnInit {
   }
  
   private mapData():void{
+    this.rowData = []
     this.Is.getInventory().subscribe(
       data=>{
         this.rowData = [...data]
@@ -103,23 +101,38 @@ export class AgGridComponent implements OnInit {
  }
 }
 
+public addItemForm = new FormGroup({
+  itemName: new FormControl('',[Validators.required]),
+  itemPrice: new FormControl('',[Validators.required]),
+  itemDetails:new FormControl('',[Validators.required]),
+  quantity: new FormControl('',[Validators.required])
+})
+
+get itemName(){
+  return this.addItemForm.get('itemName')
+}
+get itemPrice(){
+  return this.addItemForm.get('itemPrice')
+}
+get itemDetails(){
+  return this.addItemForm.get('itemDetails')
+}
+get quantity(){
+  return this.addItemForm.get('quantity')
+}
 //handle add logic   
-  handleAddItem(data: any){
+  handleAddItem(){
+  console.log(this.addItemForm.value)
+  const data = this.addItemForm.value
    const item = {
     itemName : data.itemName,
     itemPrice: data.itemPrice,
-    itemDetails: data.itemDescription,
-    quantity: data.itemQuantity,
+    itemDetails: data.itemDetails,
+    quantity: data.quantity,
     isActive: true
    }
-   let res = this.Is.addInventory(item)
-   if(res=='Data added successFully'){
-    alert('Success')
-   }
-   else{
-    alert('Error')
-   }
-  //  this.mapData()
+   this.Is.addInventory(item)
+   this.mapData()
   }
 
   handleNavigation($event:any){
@@ -170,6 +183,19 @@ console.log(this.transactionPopup)
 
           break;
         }
+        case 'edit':{
+   
+        console.log('Edit')
+
+          break;
+        }
+        case 'delete':{
+   
+          console.log('Delete')
+          console.log($event)
+
+            break;
+          }
         case 'addItem':{
           this.addItemPopup=true
           this.showPopup = 'block'    

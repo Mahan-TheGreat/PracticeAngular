@@ -10,16 +10,10 @@ export class InventoryService {
   private url = 'https://localhost:7108/api/Inventories'
    constructor(private http: HttpClient){
    }
-  // public Inventory = {
-  //   name:'',
-  //   quantity:0,
-  //   available:false
-  // }
   
   private inventoryStock:IItem[] = []
 
   get getInventoryStock(){
-    console.log(this.inventoryStock)
     return this.inventoryStock;
   }
 
@@ -34,21 +28,20 @@ export class InventoryService {
     
     this.http.post<any>(this.url, item).subscribe({
       next: data => {
-      console.log(data)
-      if(data.id!=null &&data.id!=undefined){
+       if(data.id!=null &&data.id!=undefined){
         msg = 'Data added successFully'
+        alert(msg)
 
-      }
+        }
+      },
+      error: error=>{
+      msg=error.message
       alert(msg)
-  },
-  error: error=>{
-    msg=error.message
-    alert(msg)
-    
-  }
-   })
-   return msg
-  }
+      
+    }
+  })
+    return msg
+}
 
 
   //after sales
@@ -59,7 +52,6 @@ export class InventoryService {
 
 //fetch from database
     setInventoryStock(){
-      console.log('hello')
      this.getInventory().subscribe(
       data=>{
         this.inventoryStock = [...data]
@@ -67,5 +59,8 @@ export class InventoryService {
 
      }
 
+     deleteInventory(item:any){
+      this.http.put(this.url,item)
+     }
 
 }
