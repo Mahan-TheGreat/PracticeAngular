@@ -7,8 +7,9 @@ import { IItem } from './interfaces/iitem';
   providedIn: 'root'
 })
 export class InventoryService {
-  private url = 'https://localhost:7108/api/Inventories'
+  private url = 'https://localhost:44335/api/Inventories'
    constructor(private http: HttpClient){
+    this.setInventoryStock()
    }
   
   private inventoryStock:IItem[] = []
@@ -59,8 +60,13 @@ export class InventoryService {
 
      }
 
-     deleteInventory(item:any){
-      this.http.put(this.url,item)
-     }
+    deleteInventory(id:number){
+      console.log(this.inventoryStock)
+      let item = this.inventoryStock.find(x=>x.id==id)
+      console.log(item)
+        return this.http.delete(`${this.url}/${id}`,{responseType: 'text'})
+
+      
+    }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GridOptions, ColDef, GridApi, ColumnApi, GridReadyEvent, RefreshCellsParams, RowNode, Grid } from 'ag-grid-community';
-import { IItem } from '../interfaces/iitem';
+import { GridOptions, ColDef, GridApi, ColumnApi, GridReadyEvent, RefreshCellsParams, RowNode, Grid, GridOptionsWrapper } from 'ag-grid-community';
+import * as printJS from 'print-js';
 import { PrintServiceService } from '../print-service.service';
 
 import { SalesServiceService } from '../sales-service.service';
@@ -14,6 +14,7 @@ export class ReportComponent implements OnInit {
   private Ss: SalesServiceService
   private gridApi: GridApi = new GridApi()
   private _api:GridApi = new GridApi()
+  gridOptions: any;
   constructor(SS:SalesServiceService, public PS: PrintServiceService) { 
     this.Ss = SS
   }
@@ -39,7 +40,8 @@ export class ReportComponent implements OnInit {
   }  
   
   print(){
-    this.PS.onBtPrint(this.gridApi)
+    this.gridOptions.api.setDomLayout('print')
+       // this.PS.onBtPrint(this.gridApi)
   }
     //Column Definition for ag grid
   colDefs:ColDef[] =

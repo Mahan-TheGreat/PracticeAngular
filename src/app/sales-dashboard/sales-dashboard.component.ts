@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GridOptions, ColDef, GridApi, ColumnApi, GridReadyEvent, RefreshCellsParams, RowNode } from 'ag-grid-community';
+import { IItem } from '../interfaces/iitem';
 import { InventoryService } from '../inventory.service';
 
 import { SalesServiceService } from '../sales-service.service';
@@ -17,7 +18,7 @@ export class SalesDashboardComponent implements OnInit {
     this.Is = IS
   }
   SalesList:any[]=[]
-  rowData:any[]=[]
+  rowData:IItem[]=[]
 
   onGridReady(params:GridReadyEvent){
     params.api.setRowData(this.rowData);
@@ -28,11 +29,11 @@ export class SalesDashboardComponent implements OnInit {
   }
 
   //gets sales data from table and stores it
-  mapData(){
+ private mapData(){
+  this.rowData = [];
     this.Ss.getSales().subscribe(
       data=>{
-        this.rowData = data
-
+        this.rowData =  [...data]
       });
   }  
 

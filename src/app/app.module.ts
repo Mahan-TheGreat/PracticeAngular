@@ -4,7 +4,6 @@ import { AgGridModule } from 'ag-grid-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DispencaryService } from './dispencary.service';
 import { InventoryService } from './inventory.service';
 import { AgGridComponent } from './ag-grid/ag-grid.component';
 import { BtnCellRenderer } from './ag-grid/button.component';
@@ -13,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SalesDashboardComponent } from './sales-dashboard/sales-dashboard.component';
 import { ReportComponent } from './report/report.component';
+import { PrintServiceService } from './print-service.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { ReportComponent } from './report/report.component';
     BtnCellRenderer,
     PopupModalComponent,
     SalesDashboardComponent,
-    ReportComponent
+    ReportComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +31,7 @@ import { ReportComponent } from './report/report.component';
     HttpClientModule,
     AgGridModule.withComponents([BtnCellRenderer])
   ],
-  providers: [DispencaryService,InventoryService],
+  providers: [InventoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

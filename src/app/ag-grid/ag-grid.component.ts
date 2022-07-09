@@ -18,42 +18,40 @@ export class AgGridComponent implements OnInit {
   public Is: InventoryService
   public SS: SalesServiceService
   
-  public inventoryItems: any[] = []
-  public dispencaryList: string[] = []
+  public inventoryItems: any[] = [];
+  public dispencaryList: string[] = [];
   
   componentparent: any;
-  showPopup:string="none"
-  viewPopup:boolean=false
-  transactionPopup:boolean=false
-  addItemPopup:boolean=false
-  salePopup: boolean=false
-  popUpData: any[] = []
-  context: any
+  showPopup:string="none";
+  viewPopup:boolean=false;
+  transactionPopup:boolean=false;
+  addItemPopup:boolean=false;
+  salePopup: boolean=false;
+  popUpData: any[] = [];
+  context: any;
   gridApi: any;
   
   constructor(IS:InventoryService, SS: SalesServiceService ) { 
-    this.Is = IS
-    this.SS = SS
+    this.Is = IS;
+    this.SS = SS;
     this.context = {
       componentParent: this
      }
   }
 
-
-  
    onGridReady(params:GridReadyEvent){
     params.api.setRowData(this.rowData);
   }
 
   ngOnInit(): void {
-    this.mapData()
+    this.mapData();
   }
  
   private mapData():void{
-    this.rowData = []
+    this.rowData = [];
     this.Is.getInventory().subscribe(
       data=>{
-        this.rowData = [...data]
+        this.rowData = [...data];
       });
   }
   
@@ -68,32 +66,32 @@ export class AgGridComponent implements OnInit {
 
  handleDispatch($event:any){
 
- this.mapData()
- const itemId = this.rowData.find(d=>d.itemName===$event.dispatchItem)?.id
+ this.mapData();
+ const itemId = this.rowData.find(d=>d.itemName===$event.dispatchItem)?.id;
  if(itemId==null || itemId==undefined){
-  alert('Error')
+  alert('Error');
  }else{
   const saleItem = {
     itemId: itemId,
     quantity:parseInt($event.dispatchQuantity),
     totalPrice:$event.dispatchQuantity*$event.dispatchPrice
    }
-   var msg = ''
+   var msg = '';
    this.SS.addSales(saleItem).subscribe({
     next: data => {
                     console.log(data)
                     if(data.body.status==200)
                     {
-                      msg = 'Sold  successFully'
-                      this.salePopup=false
-                      this.showPopup='none'
-                      alert(msg)
-                      this.mapData()
+                      msg = 'Sold  successFully';
+                      this.salePopup=false;
+                      this.showPopup='none';
+                      alert(msg);
+                      this.mapData();
                     }
                   },
    error: error=>{
-                  msg=error.message
-                  alert(msg)
+                  msg=error.message;
+                  alert(msg);
                   } 
  
  })
@@ -106,19 +104,19 @@ public addItemForm = new FormGroup({
   itemPrice: new FormControl('',[Validators.required]),
   itemDetails:new FormControl('',[Validators.required]),
   quantity: new FormControl('',[Validators.required])
-})
+});
 
 get itemName(){
-  return this.addItemForm.get('itemName')
+  return this.addItemForm.get('itemName');
 }
 get itemPrice(){
-  return this.addItemForm.get('itemPrice')
+  return this.addItemForm.get('itemPrice');
 }
 get itemDetails(){
-  return this.addItemForm.get('itemDetails')
+  return this.addItemForm.get('itemDetails');
 }
 get quantity(){
-  return this.addItemForm.get('quantity')
+  return this.addItemForm.get('quantity');
 }
 //handle add logic   
   handleAddItem(){
@@ -158,6 +156,19 @@ console.log(this.transactionPopup)
     }
   }
 
+  deleteInventory(id:number){
+    this.Is.deleteInventory(id).subscribe({
+      next: data => {
+         alert('Data deleted Successfully')
+         this.mapData()
+       },
+       error: error=>{
+        alert('Cannot delete the inventory. Please Try again.. ')
+       
+     }
+    })
+  }
+
    handleGridAction($event:any){
     if($event){
       
@@ -165,20 +176,20 @@ console.log(this.transactionPopup)
       switch($event.eventType){
         case 'sell':{
           if($event.data.quantity===0){
-            alert("Error!! Item is out of stock.")
-            break
+            alert("Error!! Item is out of stock.");
+            break;
           }
           this.salePopup=true;
-          this.showPopup="block"
-          this.popUpData=[]
-          this.popUpData.push($event.data)
+          this.showPopup="block";
+          this.popUpData=[];
+          this.popUpData.push($event.data);
           break;
         }
         case 'view':{
-          this.viewPopup = true 
-          this.showPopup = 'block'    
-          this.popUpData = []
-          this.popUpData.push($event.data)
+          this.viewPopup = true ;
+          this.showPopup = 'block'  ;  
+          this.popUpData = [];
+          this.popUpData.push($event.data);
 
 
           break;
@@ -191,19 +202,19 @@ console.log(this.transactionPopup)
         }
         case 'delete':{
    
-          console.log('Delete')
-          console.log($event)
+          console.log($event.data.id)
+          this.deleteInventory($event.data.id);
 
             break;
           }
         case 'addItem':{
-          this.addItemPopup=true
-          this.showPopup = 'block'    
+          this.addItemPopup=true;
+          this.showPopup = 'block';  
 
           break;
         }
         default :{
-          window.alert("Something went wrong!! Please Try again.")
+          window.alert("Something went wrong!! Please Try again.");
         }
       }
     }

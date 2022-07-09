@@ -7,7 +7,7 @@ import { IItem } from './interfaces/iitem';
   providedIn: 'root'
 })
 export class SalesServiceService {
-  private url = 'https://localhost:7108/api/TxnSales'
+  private url = 'https://localhost:44335/api/TxnSales'
   private SalesList:any[] = []
   constructor(private http: HttpClient) {
    }
@@ -36,7 +36,7 @@ setSales(){
    }
 
   getSalesReport():Observable<any[]>{
-    const url = 'https://localhost:7108/api/TxnSales/GenReport';
+    const url = 'https://localhost:44335/api/TxnSales/GenReport';
     return this.http.get<any[]>(url)
 
   }
