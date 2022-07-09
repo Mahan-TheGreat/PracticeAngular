@@ -18,44 +18,42 @@ export class ReportComponent implements OnInit {
   constructor(SS:SalesServiceService, public PS: PrintServiceService) { 
     this.Ss = SS
   }
-  SalesList:any[]=[]
   rowData:any[]=[]
 
   onGridReady(params:GridReadyEvent){
-    this.gridApi = params.api
+    this.gridApi = params.api;
+    this.getData();
     params.api.setRowData(this.rowData);
-
   }
   
   ngOnInit(): void {
-     this.getData()
   }
 
   //gets sales data from table and stores it
   getData(){
     this.Ss.getSalesReport().subscribe(
       data=>{
-         this.rowData=data
+         this.rowData=data;
       });
   }  
   
   print(){
-    this.gridOptions.api.setDomLayout('print')
+    this.gridOptions.api.setDomLayout('print');
        // this.PS.onBtPrint(this.gridApi)
-  }
+  };
     //Column Definition for ag grid
   colDefs:ColDef[] =
    [
       {headerName:"ItemName", field:"itemName"},
       {headerName:"Quantity", field:"quantity"},
-      {headerName:"TotalPrice", field:"totalPrice"},
+      {headerName:"TotalPrice", field:"totalPrice"}
 
-    ]
+    ];
 
        // Default Column Definition
   defaultColDef: ColDef = 
   {
     sortable: true,
     filter: true,
-  }
+  };
 }

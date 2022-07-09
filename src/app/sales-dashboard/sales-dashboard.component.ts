@@ -21,11 +21,11 @@ export class SalesDashboardComponent implements OnInit {
   rowData:IItem[]=[]
 
   onGridReady(params:GridReadyEvent){
+    this.mapData()
     params.api.setRowData(this.rowData);
   }
   
   ngOnInit(): void {
-     this.mapData()
   }
 
   //gets sales data from table and stores it

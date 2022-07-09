@@ -40,11 +40,11 @@ export class AgGridComponent implements OnInit {
   }
 
    onGridReady(params:GridReadyEvent){
+    this.mapData();
     params.api.setRowData(this.rowData);
   }
 
   ngOnInit(): void {
-    this.mapData();
   }
  
   private mapData():void{
