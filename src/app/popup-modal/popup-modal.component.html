@@ -1,124 +1,193 @@
-<div *ngIf="viewPopup">
-  <div
-  class="modal"
-  id="viewModal"
-  tabindex="-1"
-  role="dialog"
-  [ngStyle]="{'display':display}">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Stock Details</h4>
-        <button type="button" class="btn btn-danger" (click)="closePopup()">X</button>
-      </div>
-      <div class="modal-body">
-        <table class="table table-bordered">
-          <thead class="thead-dark">
-            <tr class="table-dark">
-              <th scope="col">Item</th>
-              <th scope="col">Price</th>
-              <th scope="col">Quantiy</th>
-              <th scope="col">Details</th>
+<div >
+  <div *ngIf="view=='1'">
+    <div
+    class="modal"
+    id="viewModal"
+    tabindex="-1"
+    role="dialog"
+    [ngStyle]="{'display':display}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Stock Details</h4>
+          <button type="button" class="btn btn-danger" (click)="closePopup()">X</button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+              <tr class="table-dark">
+                <th scope="col">Item</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantiy</th>
+                <th scope="col">Details</th>
 
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="table-secondary" *ngFor="let d of popUpData;">
-              <td >{{d.itemName}}</td>
-              <td >{{d.itemPrice}}</td>
-              <td >{{d.quantity}}</td>
-              <td><p>{{d.itemDetails}}</p></td>
-            </tr>
-          </tbody>
-         
-        </table>
-  
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" 
-                (click)="closePopup()">
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-</div>
-
-<div *ngIf="salePopup">
-  <div
-  class="modal"
-  id="dispatchModal"
-  tabindex="-1"
-  role="dialog"
-  [ngStyle]="{'display':display}">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Sell product</h4>
-        <button type="button" class="btn btn-danger btn-sm" (click)="closePopup()">X</button>
-      </div>
-      <div class="modal-body">
-        <form #dispatchForm = "ngForm" (ngSubmit)="handleSell(dispatchForm.value)">
-        <table class="table table-bordered">
-          <thead class="thead-dark">
-            <tr class="table-dark">
-              <th scope="col">Item</th>
-              <th scope="col">Price</th>
-              <th scope="col">In Stock</th>
-              <th scope="col">Dispatch Quantity</th>
-              <th scope="col">Total  Price</th>
-
-              <th scope="col">Action</th>
-
-
-            </tr>
-          </thead>
-          <tbody>
-           
-            <tr class="table-secondary" *ngFor="let d of popUpData;">
-              <input name="dispatchItem" [ngModel]="d.itemName" type="hidden">
-              <input name="dispatchPrice" [ngModel]="d.itemPrice" type="hidden">
-              <td >{{d.itemName}}</td>
-              <td >{{d.itemPrice}}</td>
-              <td>{{d.quantity}}</td>
-              <td ><input name="dispatchQuantity" id="dispatchQuantity" required type="number" min="1" max="{{d.quantity}}"  [ngModel]="defaultQuantity" #dispatchQuantity="ngModel">
-                <div *ngIf="dispatchQuantity.invalid && dispatchQuantity.touched"  >
-                  <span *ngIf="dispatchQuantity.errors?.['min']" style="color:red ;" >Quantity can not be negative.</span>
-                <span *ngIf="dispatchQuantity.errors?.['max']" style="color:red ;" >Quantity not available.</span>
-                <span *ngIf="dispatchQuantity.errors?.['required']" style="color:red ;" >Quantity is required.</span>
-                </div>
-              </td>
-              <td>
-                {{dispatchQuantity.value*d.itemPrice}}
-              </td>
-              
-              <!-- <td ><select name="dispatchDispencary" [ngModel]="dispencaryList[0]">
-                <option *ngFor="let disp of dispencaryList" name="dispatchDispencary" [ngValue]='disp' >{{disp}}</option>
-
-              </select></td>-->
-               <td> 
-                <button type="submit" [disabled]="dispatchForm.invalid" class="btn btn-primary btn-sm" >Sell</button>
-              </td>
-            </tr>
-        
-            
-          </tbody>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-secondary" *ngFor="let d of popUpData;">
+                <td >{{d.itemName}}</td>
+                <td >{{d.itemPrice}}</td>
+                <td >{{d.quantity}}</td>
+                <td><p>{{d.itemDetails}}</p></td>
+              </tr>
+            </tbody>
           
-        </table>
-       </form>
-      </div>
-      <div class="modal-footer">
-        <button 
-        type="button" 
-        class="btn btn-sm btn-danger"
-        (click)="closePopup()">
-          Close
-        </button>
+          </table>
+    
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" 
+                  (click)="closePopup()">
+            Close
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
+
+  </div>
+
+  <div *ngIf="view=='2'">
+    <div
+    class="modal"
+    id="dispatchModal"
+    tabindex="-1"
+    role="dialog"
+    [ngStyle]="{'display':display}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Sell product</h4>
+          <button type="button" class="btn btn-danger btn-sm" (click)="closePopup()">X</button>
+        </div>
+        <div class="modal-body">
+          <form #dispatchForm = "ngForm" (ngSubmit)="handleSell(dispatchForm.value)">
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+              <tr class="table-dark">
+                <th scope="col">Item</th>
+                <th scope="col">Price</th>
+                <th scope="col">In Stock</th>
+                <th scope="col">Dispatch Quantity</th>
+                <th scope="col">Total  Price</th>
+
+                <th scope="col">Action</th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+            
+              <tr class="table-secondary" *ngFor="let d of popUpData;">
+                <input name="dispatchItem" [ngModel]="d.itemName" type="hidden">
+                <input name="dispatchPrice" [ngModel]="d.itemPrice" type="hidden">
+                <td >{{d.itemName}}</td>
+                <td >{{d.itemPrice}}</td>
+                <td>{{d.quantity}}</td>
+                <td ><input name="dispatchQuantity" id="dispatchQuantity" required type="number" min="1" max="{{d.quantity}}"  [ngModel]="defaultQuantity" #dispatchQuantity="ngModel">
+                  <div *ngIf="dispatchQuantity.invalid && dispatchQuantity.touched"  >
+                    <span *ngIf="dispatchQuantity.errors?.['min']" style="color:red ;" >Quantity can not be negative.</span>
+                  <span *ngIf="dispatchQuantity.errors?.['max']" style="color:red ;" >Quantity not available.</span>
+                  <span *ngIf="dispatchQuantity.errors?.['required']" style="color:red ;" >Quantity is required.</span>
+                  </div>
+                </td>
+                <td>
+                  {{dispatchQuantity.value*d.itemPrice}}
+                </td>
+                
+                <!-- <td ><select name="dispatchDispencary" [ngModel]="dispencaryList[0]">
+                  <option *ngFor="let disp of dispencaryList" name="dispatchDispencary" [ngValue]='disp' >{{disp}}</option>
+
+                </select></td>-->
+                <td> 
+                  <button type="submit" [disabled]="dispatchForm.invalid" class="btn btn-primary btn-sm" >Sell</button>
+                </td>
+              </tr>
+          
+              
+            </tbody>
+            
+          </table>
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button 
+          type="button" 
+          class="btn btn-sm btn-danger"
+          (click)="closePopup()">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>  
+
+  <div *ngIf="view=='3'">
+    <div
+    class="modal"
+    id="editModal"
+    tabindex="-1"
+    role="dialog"
+    [ngStyle]="{'display':display}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit product</h4>
+          <button type="button" class="btn btn-danger btn-sm" (click)="closePopup()">X</button>
+        </div>
+        <div class="modal-body">
+          <form #updateform = "ngForm" (ngSubmit)="handleEdit(updateform.value)">
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+              <tr class="table-dark">
+                <th scope="col">Item</th>
+                <th scope="col">Price</th>
+                <th scope="col">Details</th>
+                <th scope="col">In Stock</th>
+                <th scope="col">Action</th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+            
+              <tr class="table-secondary" *ngFor="let d of popUpData;">
+                <input name="id" [ngModel]="d.id" type="hidden">
+                <input name="isActive" [ngModel]="d.isActive" type="hidden">
+
+                <td ><input class="w-100" type="text" name="itemName" [ngModel]="d.itemName"></td>
+                <td ><input class="w-100" type="number" name="itemPrice" [ngModel]="d.itemPrice"></td>
+                <td ><input class="w-100" type="text" name="itemDetails" [ngModel]="d.itemDetails"></td>
+                <td ><input class="w-100" type="number" name="quantity" [ngModel]="d.quantity"></td>
+
+                                
+                <!-- <td ><select name="dispatchDispencary" [ngModel]="dispencaryList[0]">
+                  <option *ngFor="let disp of dispencaryList" name="dispatchDispencary" [ngValue]='disp' >{{disp}}</option>
+
+                </select></td>-->
+                <td> 
+                  <button type="submit" [disabled]="updateform.invalid" class="btn btn-primary btn-sm" >Save</button>
+                </td>
+              </tr>
+          
+              
+            </tbody>
+            
+          </table>
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button 
+          type="button" 
+          class="btn btn-sm btn-danger"
+          (click)="closePopup()">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>  

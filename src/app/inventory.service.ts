@@ -9,7 +9,6 @@ import { IItem } from './interfaces/iitem';
 export class InventoryService {
   private url = 'https://localhost:44335/api/Inventories'
    constructor(private http: HttpClient){
-    this.setInventoryStock()
    }
   
   private inventoryStock:IItem[] = []
@@ -58,6 +57,20 @@ export class InventoryService {
         this.inventoryStock = [...data]
       });
 
+     }
+
+     updateInventory(data:any){
+      return this.http.put<any>(`${this.url}/${data.id}`,data).subscribe(
+        data=>{
+          console.log(data);
+          if(data && data.status==204){
+            alert("Edit Successfull");
+          }else{
+            alert("Something went wrong. Please try again.")
+          }
+          
+        })
+      
      }
 
     deleteInventory(id:number){

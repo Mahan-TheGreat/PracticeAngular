@@ -1,13 +1,17 @@
-<button onclick="print()">Print</button>
+<div id="myGrid" class="">
+
 <ag-grid-angular 
-style="width:100%; height:100%;"
-class='ag-theme-alpine'
-id="myGrid"
-[rowData]="rowData"
-[columnDefs]="colDefs"
-[defaultColDef]="defaultColDef"
-[animateRows]="true"
-[enableCellChangeFlash]="true"
-(gridReady)="onGridReady($event)"
+    class='ag-theme-alpine '
+    [rowData]="rowData"
+    [columnDefs]="colDefs"
+    [defaultColDef]="defaultColDef"
+    [animateRows]="true"
+    domLayout="autoHeight"
+    [enableCellChangeFlash]="true"
+    (gridReady)="onGridReady($event)"
 >
 </ag-grid-angular>
+<button class="rptBtn" type="button" class="btn btn-info btn-sm" (click)="print()">Print</button>
+<button class="rptBtn" type="button" class="btn btn-secondary btn-sm" (click)="exportToExcel()">Export</button>
+
+</div>

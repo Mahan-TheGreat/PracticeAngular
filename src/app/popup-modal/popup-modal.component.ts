@@ -11,6 +11,7 @@ export class PopupModalComponent implements OnInit {
 
   }
 
+
   //handles Display of Modal
   @Input() display:string="";
   
@@ -23,6 +24,8 @@ export class PopupModalComponent implements OnInit {
 
   @Input() salePopup:boolean=false;
 
+  @Input() editPopup:boolean=false;
+
 
 
   //dispencary list
@@ -33,9 +36,14 @@ export class PopupModalComponent implements OnInit {
 
   @Input() transactionData:any[]=[];
 
+  @Input() view:string='';
+
+
    //handle Closing of the Modal
   @Output() closePop: EventEmitter<string> = new EventEmitter<string>();
   @Output() doDispatch: EventEmitter<any> = new EventEmitter<any>();
+  @Output() doUpdate: EventEmitter<any> = new EventEmitter<any>();
+
   
   ngOnInit() {
   }
@@ -51,6 +59,10 @@ export class PopupModalComponent implements OnInit {
 
   handleSell(data:any){
      this.doDispatch.emit(data)
+  }
+
+  handleEdit(data:any){
+    this.doUpdate.emit(data)
   }
   
   

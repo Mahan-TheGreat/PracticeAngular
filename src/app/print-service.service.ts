@@ -11,11 +11,11 @@ export class PrintServiceService {
 
   onBtPrint(gridApi: GridApi) {
     this.setPrinterFriendly(gridApi)
-    window.print()
+    // window.print()
     // const api = gridApi;
     // this.setPrinterFriendly(api);
     // print();
-    // this.setNormal(api);
+    this.setNormal(gridApi);
 
   }
     

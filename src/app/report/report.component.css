@@ -1,4 +1,21 @@
-@media print{
-
+*{
+    margin:0;
+    padding: 0;
 }
 
+#myGrid{
+    width: 41%;
+    height: 100%;
+    overflow-y:hidden;
+    
+}
+
+@media print{
+    #myGrid{
+        width:85%;
+    }
+    .rptBtn{
+        display:none;
+    }
+
+}

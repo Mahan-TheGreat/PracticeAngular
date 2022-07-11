@@ -21,3 +21,11 @@
     justify-content: space-around;
 }
 
+.required, .errorMsg{
+    color: red;
+}
+
+#mainGridDash{
+    width:100%;
+    height:100%;
+} 

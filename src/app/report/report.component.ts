@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GridOptions, ColDef, GridApi, ColumnApi, GridReadyEvent, RefreshCellsParams, RowNode, Grid, GridOptionsWrapper } from 'ag-grid-community';
-import * as printJS from 'print-js';
+import { ColDef, GridApi, ColumnApi, GridReadyEvent, RefreshCellsParams, RowNode, Grid, GridOptionsWrapper, GridOptions,  } from 'ag-grid-community';
 import { PrintServiceService } from '../print-service.service';
 
 import { SalesServiceService } from '../sales-service.service';
@@ -13,8 +12,8 @@ import { SalesServiceService } from '../sales-service.service';
 export class ReportComponent implements OnInit {
   private Ss: SalesServiceService
   private gridApi: GridApi = new GridApi()
+  private gridOption:GridOptions = {}
   private _api:GridApi = new GridApi()
-  gridOptions: any;
   constructor(SS:SalesServiceService, public PS: PrintServiceService) { 
     this.Ss = SS
   }
@@ -24,6 +23,7 @@ export class ReportComponent implements OnInit {
     this.gridApi = params.api;
     this.getData();
     params.api.setRowData(this.rowData);
+    // params.api.sizeColumnsToFit();
   }
   
   ngOnInit(): void {
@@ -38,9 +38,15 @@ export class ReportComponent implements OnInit {
   }  
   
   print(){
-    this.gridOptions.api.setDomLayout('print');
-       // this.PS.onBtPrint(this.gridApi)
+    console.log(this.gridApi);
+    // this.gridApi.setDomLayout('print');
+    // this.gridOptions.api.setDomLayout('print');
+       this.PS.onBtPrint(this.gridApi);
   };
+
+  exportToExcel(){
+    this.gridApi.exportDataAsCsv();
+  }
     //Column Definition for ag grid
   colDefs:ColDef[] =
    [

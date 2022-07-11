@@ -22,14 +22,20 @@ export class AgGridComponent implements OnInit {
   public dispencaryList: string[] = [];
   
   componentparent: any;
-  showPopup:string="none";
+  showPopup:string="";
   viewPopup:boolean=false;
   transactionPopup:boolean=false;
   addItemPopup:boolean=false;
   salePopup: boolean=false;
+  editPopup: boolean=false;
+
   popUpData: any[] = [];
   context: any;
   gridApi: any;
+
+   view:string=''
+   //Row Data for ag grid
+   rowData:IItem[]= [  ]
   
   constructor(IS:InventoryService, SS: SalesServiceService ) { 
     this.Is = IS;
@@ -48,7 +54,6 @@ export class AgGridComponent implements OnInit {
   }
  
   private mapData():void{
-    this.rowData = [];
     this.Is.getInventory().subscribe(
       data=>{
         this.rowData = [...data];
@@ -56,17 +61,16 @@ export class AgGridComponent implements OnInit {
   }
   
   closePopup(){
-    this.showPopup="none"
-    this.viewPopup=false
-    this.addItemPopup=false
-    this.transactionPopup=false
-    this.salePopup=false
-    this.popUpData=[]
+    this.showPopup="none";
+    this.viewPopup=false;
+    this.editPopup=false;
+    this.addItemPopup=false;
+    this.transactionPopup=false;
+    this.salePopup=false;
+    this.popUpData=[];
   }
 
  handleDispatch($event:any){
-
- this.mapData();
  const itemId = this.rowData.find(d=>d.itemName===$event.dispatchItem)?.id;
  if(itemId==null || itemId==undefined){
   alert('Error');
@@ -98,6 +102,15 @@ export class AgGridComponent implements OnInit {
 
  }
 }
+
+handleUpdate(data:any){
+  console.log(data)
+  this.Is.updateInventory(data)
+ this.view=''
+  
+}
+
+
 
 public addItemForm = new FormGroup({
   itemName: new FormControl('',[Validators.required]),
@@ -179,25 +192,28 @@ console.log(this.transactionPopup)
             alert("Error!! Item is out of stock.");
             break;
           }
-          this.salePopup=true;
+          this.view='2'
           this.showPopup="block";
           this.popUpData=[];
           this.popUpData.push($event.data);
+          
           break;
         }
         case 'view':{
-          this.viewPopup = true ;
-          this.showPopup = 'block'  ;  
+
+          this.view='1'
+          this.showPopup = "block";  
           this.popUpData = [];
           this.popUpData.push($event.data);
-
 
           break;
         }
         case 'edit':{
-   
-        console.log('Edit')
-
+          this.view='3'
+          this.showPopup="block";
+          this.popUpData=[];
+          this.popUpData.push($event.data)
+  
           break;
         }
         case 'delete':{
@@ -209,6 +225,7 @@ console.log(this.transactionPopup)
           }
         case 'addItem':{
           this.addItemPopup=true;
+          
           this.showPopup = 'block';  
 
           break;
@@ -243,8 +260,7 @@ console.log(this.transactionPopup)
     sortable: true,
     filter: true,
   }
-  //Row Data for ag grid
-  rowData:IItem[]= [  ]
+ 
 
   
 

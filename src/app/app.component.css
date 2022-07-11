@@ -1,0 +1,9 @@
+#navBar{
+    display: flex;
+}
+
+@media print{
+    #navBar a{
+        display: none;
+    }
+    }
