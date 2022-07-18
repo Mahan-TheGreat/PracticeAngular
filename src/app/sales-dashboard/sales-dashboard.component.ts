@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { GridOptions, ColDef, GridApi, ColumnApi, GridReadyEvent, RefreshCellsParams, RowNode } from 'ag-grid-community';
 import { IItem } from '../interfaces/iitem';
-import { InventoryService } from '../inventory.service';
+import { InventoryService } from '../services/inventory.service';
 
-import { SalesServiceService } from '../sales-service.service';
+import { SalesServiceService } from '../services/sales-service.service';
 
 @Component({
   selector: 'app-sales-dashboard',

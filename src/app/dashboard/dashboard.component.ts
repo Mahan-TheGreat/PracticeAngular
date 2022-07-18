@@ -2,18 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BtnCellRenderer } from './button.component';
 import { ColDef, GridReadyEvent } from 'ag-grid-community';
-import { InventoryService } from '../inventory.service';
+import { InventoryService } from '../services/inventory.service';
 import { IItem } from '../interfaces/iitem';
-import { SalesServiceService } from '../sales-service.service';
+import { SalesServiceService } from '../services/sales-service.service';
 
 
 @Component({
-  selector: 'app-ag-grid',
-  templateUrl: './ag-grid.component.html',
-  styleUrls: ['./ag-grid.component.css']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
 
-export class AgGridComponent implements OnInit {
+export class DashboardComponent implements OnInit {
 
   public Is: InventoryService
   public SS: SalesServiceService

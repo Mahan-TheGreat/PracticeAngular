@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AgGridComponent } from './ag-grid/ag-grid.component';
+import { AuthenticationComponent } from './authentication/authentication.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReportComponent } from './report/report.component';
 import { SalesDashboardComponent } from './sales-dashboard/sales-dashboard.component';
 
 const routes: Routes = [
-  {path:'', component:AgGridComponent},
-  {path:'Dashboard', component:AgGridComponent},
+  {path:'', component:DashboardComponent},
+  {path:'Dashboard', component:DashboardComponent},
   {path:'Sales', component:SalesDashboardComponent},
-  {path:'Report', component:ReportComponent}
+  {path:'Report', component:ReportComponent},
+  {path:'Auth', component:AuthenticationComponent}
 
 
 ];

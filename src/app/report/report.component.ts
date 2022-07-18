@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ColDef, GridApi, ColumnApi, GridReadyEvent, RefreshCellsParams, RowNode, Grid, GridOptionsWrapper, GridOptions,  } from 'ag-grid-community';
-import { PrintServiceService } from '../print-service.service';
+import { PrintServiceService } from '../services/print-service.service';
 
-import { SalesServiceService } from '../sales-service.service';
+import { SalesServiceService } from '../services/sales-service.service';
 
 @Component({
   selector: 'app-report',
