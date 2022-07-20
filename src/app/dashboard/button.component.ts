@@ -13,7 +13,7 @@ import { ColumnApi, GridApi, ICellRendererParams } from "ag-grid-community";
              <button (click)="buttonClicked($event)" class="btn btn-sm btn-danger btnGrid" data-action-type='delete'>Delete</button>
 
          `,
-   styleUrls: ['./ag-grid.component.css'] 
+   styleUrls: ['./dashboard.component.css'] 
    
 })
 

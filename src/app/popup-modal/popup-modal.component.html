@@ -85,7 +85,7 @@
                 <td >{{d.itemName}}</td>
                 <td >{{d.itemPrice}}</td>
                 <td>{{d.quantity}}</td>
-                <td ><input name="dispatchQuantity" id="dispatchQuantity" required type="number" min="1" max="{{d.quantity}}"  [ngModel]="defaultQuantity" #dispatchQuantity="ngModel">
+                <td ><input title="dispatchQty" name="dispatchQuantity" id="dispatchQuantity" required type="number" min="1" max="{{d.quantity}}"  [ngModel]="defaultQuantity" #dispatchQuantity="ngModel">
                   <div *ngIf="dispatchQuantity.invalid && dispatchQuantity.touched"  >
                     <span *ngIf="dispatchQuantity.errors?.['min']" style="color:red ;" >Quantity can not be negative.</span>
                   <span *ngIf="dispatchQuantity.errors?.['max']" style="color:red ;" >Quantity not available.</span>
@@ -157,10 +157,12 @@
                 <input name="id" [ngModel]="d.id" type="hidden">
                 <input name="isActive" [ngModel]="d.isActive" type="hidden">
 
-                <td ><input class="w-100" type="text" name="itemName" [ngModel]="d.itemName"></td>
-                <td ><input class="w-100" type="number" name="itemPrice" [ngModel]="d.itemPrice"></td>
-                <td ><input class="w-100" type="text" name="itemDetails" [ngModel]="d.itemDetails"></td>
-                <td ><input class="w-100" type="number" name="quantity" [ngModel]="d.quantity"></td>
+                <td >
+                  <input title="ItemName" class="w-100" type="text" name="itemName" [ngModel]="d.itemName">
+                </td>
+                <td ><input title="ItemPrice" class="w-100" type="number" name="itemPrice" [ngModel]="d.itemPrice"></td>
+                <td ><input title="ItemName" class="w-100" type="text" name="itemDetails" [ngModel]="d.itemDetails"></td>
+                <td ><input title="ItemName" class="w-100" type="number" name="quantity" [ngModel]="d.quantity"></td>
 
                                 
                 <!-- <td ><select name="dispatchDispencary" [ngModel]="dispencaryList[0]">

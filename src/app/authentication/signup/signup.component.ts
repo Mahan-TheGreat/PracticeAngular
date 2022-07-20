@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import {FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -8,7 +10,7 @@ import {FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class SignupComponent implements OnInit {
 
-  constructor() { 
+  constructor(public AS:AuthService) { 
     
   }
 
@@ -18,9 +20,15 @@ export class SignupComponent implements OnInit {
 public signupForm = new FormGroup({
   Username: new FormControl('',[Validators.required]),
   Password: new FormControl('',[Validators.required]),
-  ConfirmPassword:new FormControl('',[Validators.required])
+  ConfirmPassword:new FormControl('',[Validators.required]),
 });
 
+genUser(pass:any){
+// const User = this.signupForm.value();
+// const encPass = this.AS.encPass(pass,15);
+// console.log(User)
+console.log(pass)
+}
 get Username(){
   return this.signupForm.get('Username');
 }
@@ -32,7 +40,8 @@ get ConfirmPassword(){
 }
 
 handleSignup(){
-  console.log(this.signupForm.value);
+  const data = this.signupForm.value;
+  this.genUser(data);
 }
 
 }
