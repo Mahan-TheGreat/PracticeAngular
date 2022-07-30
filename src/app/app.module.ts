@@ -15,8 +15,10 @@ import { ReportComponent } from './report/report.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { SignupComponent } from './authentication/signup/signup.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { AuthService } from './services/auth.service';
+import { authUserDTO } from './dtoModels/authUserModel';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,7 @@ import { BrowserModule } from '@angular/platform-browser';
     HttpClientModule,
     AgGridModule.withComponents([BtnCellRenderer])
   ],
-  providers: [InventoryService],
+  providers: [InventoryService,authUserDTO],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

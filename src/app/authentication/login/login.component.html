@@ -3,13 +3,13 @@
 
     <div class="form-group" >
         <label class="label"  for="Username">User Name</label>
-        <input class="form-control" type="text" formControlName="Username" required>
+        <input class="form-control"  aria-label="name" type="text" formControlName="Username" required>
         <div *ngIf=" Username?.touched && Username?.invalid" style="color:red ;">Error Div</div>
 
     </div>
     <div class="form-group">
         <label class="label" for="Password">Password </label>
-        <input class="form-control"  type="password" id="passInput" formControlName="Password" required>
+        <input class="form-control" aria-label="password"  type="password" id="passInput" formControlName="Password" required>
         <div *ngIf="Password?.touched && Password?.invalid" style="color:red ;">Error Div</div>
     </div> 
     <div class="text-center">

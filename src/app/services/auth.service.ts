@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import * as bcrypt from 'bcrypt';
+// import { authUserDTO } from '../dtoModels/authUserModel';
+import * as CryptoJS from 'crypto-js';
 import { authUserDTO } from '../dtoModels/authUserModel';
 
 
@@ -10,29 +11,29 @@ import { authUserDTO } from '../dtoModels/authUserModel';
 })
 export class AuthService {
   private passHash = '';
+  private _user:authUserDTO;
+  private url:string = 'https://localhost:44335/api/Users'
+  private url2:string = 'https://localhost:44335/api/Userscreds'
 
-  constructor(private http: HttpClient, private user:authUserDTO) {
+  constructor(private http: HttpClient, public user:authUserDTO) {
 
-    user = new authUserDTO();
+    this._user = user;
    }
 
      //Register
-     regUser(url:any,item:any):Observable<any>{
-      return   this.http.post<any>(url, item,{observe:'response'})
+     regUser(item:any):Observable<any>{
+      return   this.http.post<any>(this.url, item,{observe:'response'})
     }
 
-    callBackEncrypt(err:any,hash:any){
-
+    regUserCred(item:any):Observable<any>{
+      return this.http.post<any>(this.url2,item,{observe:'response'})
     }
 
-    encPass(passText:string,saltCount:number){
-      const user1 = this.user
-      bcrypt.hash(passText,saltCount, 
-         (err,hash)=>{
-          console.log(hash)
-          this.passHash = hash
-        });
-     return this.passHash;
+
+    encPass(passText:string){
+      // const user1 = this.user
+      const pass =CryptoJS.AES.encrypt(passText,"Password").toString();
+     return pass;
     }
 }
 

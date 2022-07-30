@@ -1,15 +1,15 @@
-<app-login *ngIf="flag==false"> </app-login>
-<app-signup *ngIf="flag==true"></app-signup>
+<app-login *ngIf="!flag"> </app-login>
+<app-signup *ngIf="flag"></app-signup>
 <div class="w-25">
-    <div *ngIf="flag==true" class="d-flex justify-content-around align-content-center">
+    <div *ngIf="flag" class="d-flex justify-content-around align-content-center">
         <p class="text-success">Already a Member?</p>
         <button type="submit" class="btn btn-warning btn-sm"   data-BtnType="Login" (click)="handleChange($event)">Login</button>
 
     </div>
-    <span *ngIf="flag==false" class="d-flex justify-content-around align-content-center" >
+    <div *ngIf="!flag" class="d-flex justify-content-around align-content-center" >
         <p class="text-danger">Not a Member?</p>
         <button type="submit" class="btn btn-warning btn-sm" data-BtnType="Signup" (click)="handleChange($event)">Signup</button>
 
-    </span>
+    </div>
 
 </div>

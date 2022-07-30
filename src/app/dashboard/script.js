@@ -1,6 +1,0 @@
-// console.log(document.getElementsByClassName('gridBtn'))
-// console.log('hello')
-// // .addEventListener(onclick,)
-// // document.getElementById().addEventListener(onclick,)
-// // document.getElementById().addEventListener(onclick,)
-// // document.getElementById().addEventListener(onclick,)

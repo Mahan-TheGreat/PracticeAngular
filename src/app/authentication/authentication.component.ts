@@ -14,8 +14,7 @@ export class AuthenticationComponent implements OnInit {
   }
 
   handleChange($event:any){
-  console.log($event.target.getAttribute('data-Btntype')) 
-  this.flag= !this.flag;
+  this.flag = this.flag ? false:true;
  }
 
 }

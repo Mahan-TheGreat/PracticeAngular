@@ -2,23 +2,51 @@
     <h4>signup </h4>
 
     <div class="form-group" > 
-        <label class="form-label" for="Username">User Name</label>
-        <input class="form-control" type="text" id="Username" formControlName="Username" required>
-        <div *ngIf = "Username?.touched && Username?.invalid" style="color:red ;"> Error Div</div>
+        <label class="form-label" for="firstName">First Name</label>
+        <input class="form-control" type="text" id="firstName" formControlName="firstName" required>
+        <div *ngIf="firstName?.touched && firstName?.invalid" style="color:red ;"> Error Div</div>
+
+    </div>
+
+    <div class="form-group" > 
+        <label class="form-label" for="lastName">last Name</label>
+        <input class="form-control" type="text" id="firstNames" formControlName="lastName" required>
+        <div *ngIf="lastName?.touched && lastName?.invalid" style="color:red ;"> Error Div</div>
+
+    </div>
+
+    <div class="form-group" > 
+        <label class="form-label" for="email">Email</label>
+        <input class="form-control" type="email" id="email" formControlName="email" required>
+        <div *ngIf="email?.touched && email?.invalid" style="color:red ;"> Error Div</div>
+
+    </div>
+
+    <div class="form-group" > 
+        <label class="form-label" for="location">Address</label>
+        <input class="form-control" type="text" id="location" formControlName="location" required>
+        <div *ngIf="location?.touched && location?.invalid" style="color:red ;"> Error Div</div>
+
+    </div>
+
+    <div class="form-group" > 
+        <label class="form-label" for="contact">Contact</label>
+        <input class="form-control" type="text" id="contact" formControlName="contact" required>
+        <div *ngIf="contact?.touched && contact?.invalid" style="color:red ;"> Error Div</div>
 
     </div>
 
     <div class="form-group" >
         <label class="form-label" for="pass1">Password </label>
-        <input class="form-control" type="password" id="pass1" formControlName="Password" required>
+        <input class="form-control" type="password" id="pass1" formControlName="password" required>
         <small>Password is required.</small>
-        <div *ngIf =" Password?.touched && Password?.invalid" style="color:red ;">Error Div</div>
+        <div *ngIf="password?.touched && password?.invalid" style="color:red ;">Error Div</div>
     </div>
 
     <div class="form-group">
         <label class="form-abel" for="pass2">Confirm Password </label>
-        <input class="form-control" type="password" id="pass2" formControlName="ConfirmPassword" required>
-        <div *ngIf=" ConfirmPassword?.touched && ConfirmPassword?.invalid" style="color:red ;">Error Div</div>
+        <input class="form-control" type="password" id="pass2" formControlName="confirmPassword" required>
+        <div *ngIf="confirmPassword?.touched && confirmPassword?.invalid" style="color:red ;">Error Div</div>
     </div>
 
     <div class="text-center">
