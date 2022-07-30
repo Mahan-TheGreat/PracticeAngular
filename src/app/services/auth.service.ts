@@ -13,7 +13,7 @@ export class AuthService {
   private passHash = '';
   private _user:authUserDTO;
   private url:string = 'https://localhost:44335/api/Users'
-  private url2:string = 'https://localhost:44335/api/Userscreds'
+  private url2:string = 'https://localhost:44335/api/UserCreds'
 
   constructor(private http: HttpClient, public user:authUserDTO) {
 

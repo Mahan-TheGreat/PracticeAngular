@@ -23,6 +23,7 @@ public signupForm = new FormGroup({
   firstName: new FormControl('',[Validators.required]),
   lastName: new FormControl('',[Validators.required]),
   email:new FormControl('',[Validators.required]),
+  username: new FormControl('',[Validators.required]),
   location: new FormControl('',[Validators.required]),
   contact: new FormControl(''),
   password: new FormControl('',[Validators.required]),
@@ -33,7 +34,10 @@ get firstName(){
   return this.signupForm.get('Username');
 }
 get lastName(){
-  return this.signupForm.get('ConfirmPassword');
+  return this.signupForm.get('lastname');
+}
+get username(){
+  return this.signupForm.get('username');
 }
 get email(){
   return this.signupForm.get('email');
@@ -53,19 +57,21 @@ get confirmPassword(){
   return this.signupForm.get('ConfirmPassword');
 }
 
-genUserCred(data:any){
+genUserCred(res:any){
+  const data= this.signupForm.value
   const encPass = this._AS.encPass(data.Password);
-  console.log(encPass)
-  const user = {
-    UserId:data.body.id,
-    Username:data.body.username,
-    Email:data.body.email,
+  const userCred = {
+    UserId:res.body.id,
+    UserName:data.username,
+    Email:data.email,
     Pass:encPass,
+    Location:data.location,
+    IsActive:true
   
   }
-  console.log(user)
+  console.log(userCred)
   
-  return user;
+  return userCred;
   }
   
 handleSignup(){
@@ -73,9 +79,9 @@ handleSignup(){
   const user = {
     FirstName:data.firstName,
     LastName:data.lastName,
-    contact:data.contact,
-    location:data.location,
-   isActive:true
+    Contact:data.contact,
+    Location:data.location,
+   IsActive:true
   
   }
 
@@ -83,8 +89,10 @@ handleSignup(){
   this.AS.regUser(user).subscribe({
     next: data=>{
       console.log(data);
-      const Userscreds:any = this.genUserCred(data);
-      this.handleUserCred(Userscreds);
+
+      const userCreds = this.genUserCred(data);
+      console.log(userCreds)
+      this.handleUserCred(userCreds);
     }
       })
     }
