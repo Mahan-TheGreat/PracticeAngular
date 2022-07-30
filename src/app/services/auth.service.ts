@@ -10,7 +10,6 @@ import { authUserDTO } from '../dtoModels/authUserModel';
   providedIn: 'root'
 })
 export class AuthService {
-  private passHash = '';
   private _user:authUserDTO;
   private url:string = 'https://localhost:44335/api/Users'
   private url2:string = 'https://localhost:44335/api/UserCreds'
